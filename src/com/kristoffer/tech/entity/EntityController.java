@@ -1,66 +1,41 @@
 package com.kristoffer.tech.entity;
 
 import com.kristoffer.tech.Panel;
+import com.kristoffer.tech.moves.MoveDown;
+import com.kristoffer.tech.moves.MoveDownRelease;
+import com.kristoffer.tech.moves.MoveUp;
+import com.kristoffer.tech.moves.MoveUpRelease;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
 
 public class EntityController {
-private Entity entity;
-private boolean isPLayerOne;
 
-    public EntityController(Entity entity, boolean isPLayerOne) {
-        this.entity = entity;
-        this.isPLayerOne = isPLayerOne;
+    public EntityController(Entity entity, int up, int down) {
 
-        KeyStroke up;
-        KeyStroke upRelease;
-        boolean playerMoving;
+        KeyStroke upKey = KeyStroke.getKeyStroke(up, 0, false);
+        KeyStroke upKeyRelease = KeyStroke.getKeyStroke(up, 0, true);
+        KeyStroke downKey = KeyStroke.getKeyStroke(down, 0, false);
+        KeyStroke downKeyRelease = KeyStroke.getKeyStroke(down, 0, true);
 
-        if(isPLayerOne){
-
-             up = KeyStroke.getKeyStroke(KeyEvent.VK_W, 0 , false);
-             upRelease = KeyStroke.getKeyStroke(KeyEvent.VK_W, 0 , true);
+        AbstractAction moveUp = new MoveUp();
+        AbstractAction moveUpRelease = new MoveUpRelease();
+        AbstractAction moveDown = new MoveDown();
+        AbstractAction moveDownRelease = new MoveDownRelease();
 
 
-        }
+        entity.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(upKey,"moveUp");
+        entity.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(upKeyRelease,"moveUpRelease");
+        entity.getActionMap().put("moveUp", moveUp);
+        entity.getActionMap().put("moveUpRelease", moveUpRelease);
 
-        else{
-            up = KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0 , false);
-            upRelease = KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0 , true);
-            System.out.println("HOHO");
+        entity.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(downKey,"moveDown");
+        entity.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(downKeyRelease,"moveDownRelease");
+        entity.getActionMap().put("moveDown", moveDown);
+        entity.getActionMap().put("moveDownRelease", moveDownRelease);
 
-        }
+    }
 
-        entity.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(up,"moveUp");
-        entity.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(upRelease,"moveUpRelease");
-        entity.getActionMap().put("moveUp", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(isPLayerOne){
-
-                    Panel.p1MovingUp = true;
-                }
-                else{
-                    Panel.p2MovingUp = true;
-                }
-            }
-        });
-        entity.getActionMap().put("moveUpRelease", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(isPLayerOne){
-                    Panel.p1MovingUp = false;
-
-                }
-                else{
-                    Panel.p2MovingUp = false;
-
-                }
-            }
-        });
-
+    public EntityController(Entity ball){
 
     }
 }

@@ -1,24 +1,13 @@
 package com.kristoffer.tech.entity;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class Entity extends JLabel {
 
-    private ImageIcon image;
     private boolean movingUp, movingDown;
 
-
-    public Entity( ImageIcon image) {
-        this.image = image;
-    }
-
-    public ImageIcon getImage() {
-        return image;
+    public Entity(Icon image) {
+        super(image);
     }
 
     public boolean isMovingUp() {

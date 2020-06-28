@@ -15,8 +15,6 @@ import java.io.IOException;
 
 public class Panel extends JPanel {
 
-    private JLabel p1, p2;
-    public static   boolean p1MovingUp = false, p2MovingUp = false, p2MovingDown = false, p1MovingDown = false;
     private Timer timer;
 
     public Panel() throws IOException {
@@ -24,59 +22,31 @@ public class Panel extends JPanel {
         this.setLayout(null);
         BufferedImage image1 = ImageIO.read(new File("resources\\player1.png"));
         BufferedImage image2 = ImageIO.read(new File("resources\\player2.png"));
-        p1 = new JLabel(new ImageIcon(image1));
-        p2 = new JLabel(new ImageIcon(image2));
+        BufferedImage image3 = ImageIO.read(new File("resources\\ball.png"));
 
-        Entity player1Test = new Entity(new ImageIcon(image1));
-        Entity player2Test = new Entity(new ImageIcon(image2));
-        int y = GameFrame.HEIGHT / 2 - image1.getHeight();
-        p1.setLocation(40, y);
-        p2.setLocation(GameFrame.WIDTH - 40 - image1.getWidth(), y);
-        p1.setSize(image1.getWidth(), image1.getHeight());
-        p2.setSize(image2.getWidth(), image2.getHeight());
-        this.add(p1);
-        this.add(p2);
+        Entity player1 = new Entity(new ImageIcon(image1));
+        Entity player2 = new Entity(new ImageIcon(image2));
+        Entity ball = new Entity(new ImageIcon(image3));
+        int y = GameFrame.HEIGHT / 2 - image1.getHeight()/2;
+        player1.setLocation(40, y);
+        player2.setLocation(GameFrame.WIDTH - 40 - image1.getWidth(), y);
+        player1.setSize(image1.getWidth(), image1.getHeight());
+        player2.setSize(image2.getWidth(), image2.getHeight());
+        ball.setLocation(GameFrame.WIDTH/2, GameFrame.HEIGHT/2);
+        ball.setSize(image3.getWidth(), image3.getHeight());
+        this.add(player1);
+        this.add(player2);
+        this.add(ball);
 
-        MoveUp moveUp = new MoveUp();
-        MoveDown moveDown = new MoveDown();
 
-        new EntityController(p1, true);
-        new EntityController(p2, false);
+        new EntityController(player1, KeyEvent.VK_W, KeyEvent.VK_S);
+        new EntityController(player2, KeyEvent.VK_UP, KeyEvent.VK_DOWN);
+        new EntityController(ball);
 
-        p1.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("S"),"moveDown");
 
-        p2.getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "moveDown");
 
-        p1.getActionMap().put("moveDown", moveDown);
-        p2.getActionMap().put("moveUp", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                p2MovingUp = true;
-            }
-        });
-        p2.getActionMap().put("moveUpRelease", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                p2MovingUp = false;
-            }
-        });
-        p2.getActionMap().put("moveDown",moveDown);
 
-        timer = new Timer(16, (e) -> {
-            if(p1MovingUp){
-                if (p1.getLocation().y > 0){
-
-                p1.setLocation(new Point(p1.getX(), p1.getY()-10));
-                }
-            }
-            if(p2MovingUp){
-                if (p2.getLocation().y > 0){
-                p2.setLocation(new Point(p2.getX(), p2.getY()-10));
-
-                }
-            }
-
-        });
+        timer = new GameLoop(16, player1, player2, ball);
         timer.start();
     }
 
