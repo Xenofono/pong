@@ -48,7 +48,6 @@ public class Panel extends JPanel {
 
         new EntityController(player1, KeyEvent.VK_W, KeyEvent.VK_S);
         new EntityController(player2, KeyEvent.VK_UP, KeyEvent.VK_DOWN);
-        new EntityController(ball);
 
 
 
