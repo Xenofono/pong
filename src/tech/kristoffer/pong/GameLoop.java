@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Area;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 /*
 main loop for the game, it extends the swing timer, second argument in the super call is an ActionListener that is
@@ -36,28 +39,21 @@ public class GameLoop extends Timer {
                 player.setLocation(new Point(player.getLocation().x, player.getLocation().y+direction));
             };
 
-            if(player1.isMovingUp()){
-                if (player1.getLocation().y > 0){
-                    changeY.accept(player1, true);
+            Consumer<Entity> isMoving = ( player) -> {
+                if(player.isMovingUp()){
+                    if(player.getLocation().y > 0){
+                        changeY.accept(player, true);
+                    }
                 }
-            }
-            if(player2.isMovingUp()){
-                if (player2.getLocation().y > 0){
-                    changeY.accept(player2, true);
+                if(player.isMovingDown()){
+                    if (player.getLocation().y+player.getHeight() < GameFrame.HEIGHT){
+                        changeY.accept(player, false);
+                    }
+                }
+            };
 
-                }
-            }
-            if(player1.isMovingDown()){
-                if (player1.getLocation().y+player1.getHeight() < GameFrame.HEIGHT){
-                    changeY.accept(player1, false);
-                }
-            }
-            if(player2.isMovingDown()){
-                if (player2.getLocation().y < GameFrame.HEIGHT - player2.getHeight()){
-                    changeY.accept(player2, false);
-
-                }
-            }
+            isMoving.accept(player1);
+            isMoving.accept(player2);
 
             //get current entity areas
             Area ballArea = new Area(ball.getBounds());
