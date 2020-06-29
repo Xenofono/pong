@@ -26,4 +26,9 @@ public class Entity extends JLabel {
         this.movingDown = movingDown;
     }
 
+    public int getYCenter(){
+        return this.getY() + (this.getHeight()/2);
+    }
+
+
 }

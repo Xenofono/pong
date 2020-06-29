@@ -17,6 +17,7 @@ public class Panel extends JPanel {
 
     private Timer timer;
 
+
     public Panel() throws IOException {
         this.setBackground(new Color(25, 255, 255));
         this.setLayout(null);
@@ -38,6 +39,12 @@ public class Panel extends JPanel {
         this.add(player2);
         this.add(ball);
 
+        JLabel score = new JLabel();
+        score.setSize(200, 200);
+        score.setLocation(GameFrame.WIDTH/2-score.getWidth()/2, 100);
+        score.setFont(score.getFont().deriveFont(64f));
+        this.add(score);
+
 
         new EntityController(player1, KeyEvent.VK_W, KeyEvent.VK_S);
         new EntityController(player2, KeyEvent.VK_UP, KeyEvent.VK_DOWN);
@@ -46,16 +53,11 @@ public class Panel extends JPanel {
 
 
 
-        timer = new GameLoop(16, player1, player2, ball);
+        timer = new GameLoop(17, player1, player2, ball, score);
         timer.start();
     }
 
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
 
-
-    }
 
 }
