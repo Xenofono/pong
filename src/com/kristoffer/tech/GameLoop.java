@@ -7,8 +7,13 @@ import java.awt.*;
 import java.awt.geom.Area;
 import java.util.function.BiConsumer;
 
+/*
+main loop for the game, it extends the swing timer, second argument in the super call is an ActionListener that is
+run after each delay
+ */
 public class GameLoop extends Timer {
 
+    //static variables so they can be accessed from the constructor
     private static final int PLAYER_SPEED = 8;
     private static  int BALL_SPEED = 7;
     private static final double PADDLE_SPIN = 8;
@@ -54,13 +59,12 @@ public class GameLoop extends Timer {
                 }
             }
 
+            //get current entity areas
             Area ballArea = new Area(ball.getBounds());
             Area player1Area = new Area(player1.getBounds());
             Area player2Area = new Area(player2.getBounds());
 
-//            Rectangle rec = ball.getBounds();
-//            Rectangle result1 = SwingUtilities.computeIntersection(ball.getX(), ball.getY(), player1.getX(), player1.getY(), rec);
-//            Rectangle result2 = SwingUtilities.computeIntersection(ball.getX(), ball.getY(), player2.getX(), player2.getY(), rec);
+            //check if areas intersect, if yes then there is a collision
             if(ballArea.intersects(player1Area.getBounds2D())){
                 offset = (double) (player1.getYCenter()-ball.getYCenter()) / player1.getHeight();
                 System.out.println(offset);
@@ -75,7 +79,7 @@ public class GameLoop extends Timer {
                 ball.setLocation(new Point(ball.getLocation().x-BALL_SPEED, ball.getLocation().y+angle));
 
 
-
+            //if ball is outside right side, player1 score
             if( ball.getX() > GameFrame.WIDTH +100){
                 ball.setLocation(GameFrame.WIDTH/2, GameFrame.HEIGHT/2);
                 player1Score++;
@@ -87,6 +91,8 @@ public class GameLoop extends Timer {
                 hasScored = true;
                 offset = 0;
             }
+
+            //if ball reaches roof or ceiling, reverse y direction but maintain x (bounce)
             if(ball.getY() <= 0 || ball.getY()+ball.getHeight() >= GameFrame.HEIGHT){
                 offset = -offset;
             }
