@@ -8,6 +8,13 @@ import com.kristoffer.tech.moves.MoveUpRelease;
 
 import javax.swing.*;
 
+/*
+controller for the paddles, since swing cant track multiple KeyStrokes simultaneously this class uses 4 different
+AbstractActions, 2 of the record button presses and flip a boolean to true, the others record button releases and
+flip them back to false.
+
+while the booleans are true the game loop will move entities
+ */
 public class EntityController {
 
     public EntityController(Entity entity, int up, int down) {
@@ -35,7 +42,4 @@ public class EntityController {
 
     }
 
-    public EntityController(Entity ball){
-
-    }
 }
