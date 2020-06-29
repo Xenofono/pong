@@ -1,4 +1,4 @@
-package com.kristoffer.tech.entity;
+package tech.kristoffer.pong.entity;
 
 import javax.swing.*;
 

@@ -1,10 +1,9 @@
-package com.kristoffer.tech.entity;
+package tech.kristoffer.pong.entity;
 
-import com.kristoffer.tech.Panel;
-import com.kristoffer.tech.moves.MoveDown;
-import com.kristoffer.tech.moves.MoveDownRelease;
-import com.kristoffer.tech.moves.MoveUp;
-import com.kristoffer.tech.moves.MoveUpRelease;
+import tech.kristoffer.pong.moves.MoveDown;
+import tech.kristoffer.pong.moves.MoveDownRelease;
+import tech.kristoffer.pong.moves.MoveUp;
+import tech.kristoffer.pong.moves.MoveUpRelease;
 
 import javax.swing.*;
 

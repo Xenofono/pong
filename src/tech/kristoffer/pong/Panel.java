@@ -1,13 +1,11 @@
-package com.kristoffer.tech;
+package tech.kristoffer.pong;
 
-import com.kristoffer.tech.entity.Entity;
-import com.kristoffer.tech.entity.EntityController;
-import com.kristoffer.tech.moves.*;
+import tech.kristoffer.pong.entity.Entity;
+import tech.kristoffer.pong.entity.EntityController;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;

@@ -1,4 +1,4 @@
-package com.kristoffer.tech;
+package tech.kristoffer.pong;
 
 import javax.swing.*;
 import java.io.IOException;

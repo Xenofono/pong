@@ -1,6 +1,6 @@
-package com.kristoffer.tech;
+package tech.kristoffer.pong;
 
-import com.kristoffer.tech.entity.Entity;
+import tech.kristoffer.pong.entity.Entity;
 
 import javax.swing.*;
 import java.awt.*;
